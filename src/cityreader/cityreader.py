@@ -1,6 +1,7 @@
-import csv
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
+
+import csv
 
 
 class City:
@@ -9,8 +10,8 @@ class City:
         self.lat = lat
         self.lon = lon
 
-    def __repr__(self):
-        return(f'{self.name}: ({self.lat}, {self.lon})')
+    def __str__(self):
+        return f"{c.name} | {c.lat} | {c.lon}"
 
 
 # We have a collection of US cities with population over 750,000 stored in the
@@ -29,29 +30,21 @@ cities = []
 
 
 def cityreader(cities=[]):
-  '''Functionality to read from the 'cities.csv' file
-  For each city record, create a new City instance and add it to the
-  `cities` list'''
+    # TODO Implement the functionality to read from the 'cities.csv' file
+    # For each city record, create a new City instance and add it to the
+    # `cities` list
+    with open("cities.csv", newline="") as csv_file:
+        line_reader = csv.reader(csv_file, delimiter=",", quotechar="|")
+        for row in line_reader:
+            cities.append(City(row[0], row[3], row[4]))
+        return cities
 
-  # cities=[]
-  with open('cities.csv', 'r') as csvfile:
-    reader = csv.reader(csvfile)
-    next(reader)    # skip header
-    for row in reader:
-      print(row)
-      name = row[0]
-      lat = float(row[3])
-      lon = float(row[4])
-      cities.append(City(name, lat, lon))
 
-    return cities
-
+cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
-for c in cities:
+for c in cities[1:]:
     print(c)
-
-print("THE END!")
 
 # STRETCH GOAL!
 #
@@ -86,13 +79,11 @@ print("THE END!")
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
-  # within will hold the cities that fall within the specified region
-  within = []
+    # within will hold the cities that fall within the specified region
+    within = []
 
-  # TODO Ensure that the lat and lon valuse are all floats
-  # Go through each city and check to see if it falls within
-  # the specified coordinates.
+    # TODO Ensure that the lat and lon valuse are all floats
+    # Go through each city and check to see if it falls within
+    # the specified coordinates.
 
-  return within
-
-print(cityreader_stretch(45, -100, 32, -120))
+    return within
